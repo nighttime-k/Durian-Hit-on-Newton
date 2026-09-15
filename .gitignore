@@ -1,0 +1,10 @@
+node_modules/
+.env
+.env.*
+.project_id
+.github_repo
+.node_modules.lock
+.grok/
+.vercel/
+screenshots/
+artifacts/

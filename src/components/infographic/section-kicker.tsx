@@ -1,0 +1,1 @@
+export function SectionKicker({ index, children }: { index: string; children: string }) { return <p className="mb-3 flex items-center gap-3 text-sm font-medium tracking-wide text-muted"><span className="font-mono text-xs text-subtle">{index}</span><span className="h-px w-8 bg-line" aria-hidden="true" />{children}</p>; }

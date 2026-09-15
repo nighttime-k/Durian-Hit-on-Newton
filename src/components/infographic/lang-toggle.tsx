@@ -1,0 +1,3 @@
+import { useLocale } from "@/lib/locale";
+import { cn } from "@/lib/utils";
+export function LangToggle({ className }: { className?: string }) { const { locale, setLocale, t } = useLocale(); return <div role="group" aria-label={t.lang.group} className={cn("inline-flex rounded-full bg-raised p-1 shadow-border", className)}>{(["th", "en"] as const).map((code) => <button key={code} type="button" aria-pressed={locale === code} onClick={() => setLocale(code)} className={cn("pressable min-h-11 min-w-11 rounded-full px-3 text-xs font-medium tracking-wide transition-colors duration-150", locale === code ? "bg-fg text-bg" : "text-muted hover:text-fg")}>{code === "th" ? t.lang.th : t.lang.en}</button>)}</div>; }
