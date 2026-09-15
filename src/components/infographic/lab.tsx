@@ -172,18 +172,124 @@ export function Lab() {
 
             <div className={cn("drop-well mt-8", shake && "is-shaking")}>
               <div className="drop-shaft">
-                <div className="drop-fruit" style={{ top: `${progress * 78}%` }}>
-                  <img src={fruit === "durian" ? "/durian.jpg" : "/apple.jpg"} alt="" className="size-12 rounded-full object-cover" width={48} height={48} />
+                <div
+                  className="drop-fruit"
+                  style={{ top: `${progress * 78}%` }}
+                >
+                  <img
+                    src={fruit === "durian" ? "/durian.jpg" : "/apple.jpg"}
+                    alt=""
+                    className="size-12 rounded-full object-cover"
+                    width={48}
+                    height={48}
+                  />
                 </div>
                 <div className="drop-target">
                   <span className="drop-head" aria-hidden="true" />
                   <span className="text-xs text-subtle">{t.lab.target}</span>
                 </div>
               </div>
+              {phase === "hit" ? (
+                <p className="mt-4 text-center font-mono text-sm text-durian">
+                  {t.lab.impact}: {" "}
+                  {formatNumber(fruit === "durian" ? data.durianJ : data.appleJ, 0, locale)}{" "}
+                  {t.lab.joules}
+                </p>
+              ) : null}
             </div>
+
+            <div className="mt-10 grid gap-4 md:grid-cols-2">
+              <EnergyPanel
+                name={t.lab.apple}
+                massLabel={t.lab.massApple}
+                joules={data.appleJ}
+                riskLabel={risk(data.appleRisk.id).label}
+                riskHint={risk(data.appleRisk.id).hint}
+                rank={data.appleRisk.rank}
+                barClass="bg-apple"
+                barWidth={APPLE_KG / DURIAN_KG}
+                unit={t.lab.joules}
+                locale={locale}
+              />
+              <EnergyPanel
+                name={t.lab.durian}
+                massLabel={t.lab.massDurian}
+                joules={data.durianJ}
+                riskLabel={risk(data.durianRisk.id).label}
+                riskHint={risk(data.durianRisk.id).hint}
+                rank={data.durianRisk.rank}
+                barClass="bg-durian"
+                barWidth={1}
+                unit={t.lab.joules}
+                locale={locale}
+              />
+            </div>
+
+            <p className="mt-8 text-sm text-muted">
+              {t.lab.footnoteBefore} {" "}
+              <span className="font-mono text-fg">
+                {formatNumber(data.ratio, 0, locale)} {t.lab.footnoteUnit}
+              </span>{" "}
+              {t.lab.footnoteAfter}
+            </p>
           </div>
         </Reveal>
       </div>
     </section>
+  );
+}
+
+function EnergyPanel({
+  name,
+  massLabel,
+  joules,
+  riskLabel,
+  riskHint,
+  rank,
+  barClass,
+  barWidth,
+  unit,
+  locale,
+}: {
+  name: string;
+  massLabel: string;
+  joules: number;
+  riskLabel: string;
+  riskHint: string;
+  rank: 1 | 2 | 3 | 4;
+  barClass: string;
+  barWidth: number;
+  unit: string;
+  locale: "th" | "en";
+}) {
+  return (
+    <article className="rounded-lg bg-surface p-5">
+      <div className="flex items-baseline justify-between gap-3">
+        <h3 className="font-display text-2xl font-medium text-fg">{name}</h3>
+        <p className="text-xs text-subtle">{massLabel}</p>
+      </div>
+      <p className="mt-4 font-mono text-3xl tabular-nums text-fg">
+        {formatNumber(joules, 0, locale)}
+        <span className="ml-2 text-base text-muted">{unit}</span>
+      </p>
+      <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-line">
+        <div
+          className={cn("energy-fill h-full rounded-full", barClass)}
+          style={{ width: `${barWidth * 100}%` }}
+        />
+      </div>
+      <div className="mt-5">
+        <div className="flex items-baseline justify-between gap-3 text-sm">
+          <span className="text-fg">{riskLabel}</span>
+          <span className="text-subtle">{riskHint}</span>
+        </div>
+        <div className="mt-2 h-1 overflow-hidden rounded-full bg-line">
+          <div
+            className={cn("risk-fill h-full rounded-full", barClass)}
+            style={{ width: `${(rank / 4) * 100}%` }}
+          />
+        </div>
+      </div>
+    </article>
   );
 }
