@@ -191,7 +191,7 @@ export function Lab() {
               </div>
               {phase === "hit" ? (
                 <p className="mt-4 text-center font-mono text-sm text-durian">
-                  {t.lab.impact}: {" "}
+                  {t.lab.impact}:{" "}
                   {formatNumber(fruit === "durian" ? data.durianJ : data.appleJ, 0, locale)}{" "}
                   {t.lab.joules}
                 </p>
@@ -226,7 +226,7 @@ export function Lab() {
             </div>
 
             <p className="mt-8 text-sm text-muted">
-              {t.lab.footnoteBefore} {" "}
+              {t.lab.footnoteBefore}{" "}
               <span className="font-mono text-fg">
                 {formatNumber(data.ratio, 0, locale)} {t.lab.footnoteUnit}
               </span>{" "}

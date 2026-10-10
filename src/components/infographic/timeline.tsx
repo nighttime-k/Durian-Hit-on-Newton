@@ -25,12 +25,27 @@ export function Timeline() {
               <Reveal key={`${event.year}-${event.title}`} delayMs={index * 60}>
                 <li className="timeline-row">
                   <div className="pt-1 font-mono text-sm text-durian">{event.year}</div>
-                  <div className={index === t.timeline.events.length - 1 ? "border-l border-transparent pb-0 pl-5 sm:pl-8" : "border-l border-line pb-4 pl-5 sm:pl-8"}>
-                    <button type="button" aria-expanded={isOpen} onClick={() => setOpen(isOpen ? -1 : index)} className="w-full rounded-lg py-2 text-left transition-colors duration-150 hover:text-durian">
-                      <h3 className="font-display text-xl font-medium text-fg sm:text-2xl">{event.title}</h3>
+                  <div
+                    className={
+                      index === t.timeline.events.length - 1
+                        ? "border-l border-transparent pb-0 pl-5 sm:pl-8"
+                        : "border-l border-line pb-4 pl-5 sm:pl-8"
+                    }
+                  >
+                    <button
+                      type="button"
+                      aria-expanded={isOpen}
+                      onClick={() => setOpen(isOpen ? -1 : index)}
+                      className="w-full rounded-lg py-2 text-left transition-colors duration-150 hover:text-durian"
+                    >
+                      <h3 className="font-display text-xl font-medium text-fg sm:text-2xl">
+                        {event.title}
+                      </h3>
                     </button>
                     <div className={cn("timeline-body", isOpen && "is-open")}>
-                      <div><p className="max-w-xl pb-8 text-muted">{event.body}</p></div>
+                      <div>
+                        <p className="max-w-xl pb-8 text-muted">{event.body}</p>
+                      </div>
                     </div>
                   </div>
                 </li>
